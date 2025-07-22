@@ -1,63 +1,109 @@
-# group
+# Enlace - Microservices API Documentation
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+Enlace is a modular social platform designed to manage small groups (called "cells") and communities. This repository contains the **User API** and **Group API**, which are key microservices in the Enlace ecosystem.
 
-If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
+## 🧩 Microservices Overview
 
-## Running the application in dev mode
+- **Group API**: Handles group creation, membership, roles, and group-related configurations.
 
-You can run your application in dev mode that enables live coding using:
+---
 
-```shell script
-./mvnw quarkus:dev
+## 📦 Technologies
+
+- Java 17+
+- Quarkus (Reactive Stack)
+- PostgreSQL 14
+- Hibernate Reactive & Panache
+- Flyway (Database migrations)
+- Docker & Docker Compose
+- Maven
+
+---
+
+## 📁 Project Structure
+
+```bash
+enlace/
+├── user-api/         # User microservice
+├── group-api/        # Group microservice
+└── docker-compose.yml
 ```
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.
+---
 
-## Packaging and running the application
+## ▶️ Getting Started
 
-The application can be packaged using:
+### Prerequisites
 
-```shell script
-./mvnw package
+- Docker & Docker Compose
+- JDK 17+
+- Maven 3.9+
+
+### Running with Docker Compose
+
+```bash
+docker-compose up --build
 ```
 
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
+This will start PostgreSQL and both services (if Dockerfiles are provided).
 
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
+---
 
-If you want to build an _über-jar_, execute the following command:
+## 👥 Group API
 
-```shell script
-./mvnw package -Dquarkus.package.jar.type=uber-jar
+### Base URL
+
+```
+http://localhost:8282/api/groups
 ```
 
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
+### Endpoints
 
-## Creating a native executable
+| Method | Path                    | Description                         |
+|--------|-------------------------|-------------------------------------|
+| GET    | `/`                     | List all groups                     |
+| GET    | `/{groupId}`            | Get group details by ID             |
+| POST   | `/`                     | Create a new group                  |
+| PUT    | `/{groupId}`            | Update group details                |
+| DELETE | `/{groupId}`            | Delete a group                      |
+| POST   | `/{groupId}/members`    | Add member(s) to group              |
+| DELETE | `/{groupId}/members`    | Remove member(s) from group         |
 
-You can create a native executable using:
+---
 
-```shell script
-./mvnw package -Dnative
+## 🔧 Configuration
+
+All service configuration can be managed via `application.yml`:
+
+```yaml
+quarkus:
+  datasource:
+    db-kind: postgresql
+    username: enlace
+    password: 3nl4c3
+    jdbc:
+      url: jdbc:postgresql://localhost:5433/user
+  flyway:
+    migrate-at-start: true
+    locations: db/migration
 ```
 
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
+---
 
-```shell script
-./mvnw package -Dnative -Dquarkus.native.container-build=true
-```
+## 📌 Notes
 
-You can then execute your native executable with: `./target/group-1.0.0-SNAPSHOT-runner`
+- Database scripts are located in `/db/migration`.
+- The project uses **Flyway** to manage schema evolution.
+- Both APIs follow RESTful principles and use JSON for communication.
 
-If you want to learn more about building native executables, please consult <https://quarkus.io/guides/maven-tooling>.
+---
 
-## Related Guides
+## 📫 Contact
 
-- REST ([guide](https://quarkus.io/guides/rest)): A Jakarta REST implementation utilizing build time processing and Vert.x. This extension is not compatible with the quarkus-resteasy extension, or any of the extensions that depend on it.
-- Micrometer Registry Prometheus ([guide](https://quarkus.io/guides/micrometer)): Enable Prometheus support for Micrometer
-- REST Jackson ([guide](https://quarkus.io/guides/rest#json-serialisation)): Jackson serialization support for Quarkus REST. This extension is not compatible with the quarkus-resteasy extension, or any of the extensions that depend on it
-- SmallRye Fault Tolerance ([guide](https://quarkus.io/guides/smallrye-fault-tolerance)): Build fault-tolerant network services
-- Reactive PostgreSQL client ([guide](https://quarkus.io/guides/reactive-sql-clients)): Connect to the PostgreSQL database using the reactive pattern
-- Micrometer metrics ([guide](https://quarkus.io/guides/micrometer)): Instrument the runtime and your application with dimensional metrics using Micrometer.
+For questions or contributions, please contact the Enlace development team or open an issue.
+
+---
+
+## License
+
+This project is licensed under the MIT License.
