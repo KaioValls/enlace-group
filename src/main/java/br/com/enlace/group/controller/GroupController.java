@@ -31,7 +31,6 @@ public class GroupController {
     @Path("{groupId}")
     @WithTransaction
     public Uni<RestResponse<Group>> getGroupById(Long groupId){
-        System.out.println("fez o request");
         return groupService.getGroupById(groupId).onItem().transform(RestResponse::ok);
     }
 
