@@ -18,7 +18,7 @@ public class InteractionRules extends PanacheEntityBase {
     private Group group;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "visibility_level", nullable = false)
+    @Column(name = "visibility_level", nullable = false, length = 20)
     private VisibilityLevel visibilityLevel;
 
     @OneToMany(mappedBy = "interactionRules", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -33,4 +33,44 @@ public class InteractionRules extends PanacheEntityBase {
     @Column(name = "allow_member_invite", nullable = false)
     private Boolean allowMemberInvite;
 
+    public InteractionRules() {
+    }
+
+    public InteractionRules(Long id, Group group, VisibilityLevel visibilityLevel, List<InteractionRolePermission> permissions, int maxMembers, Boolean requireApprovalToJoin, Boolean allowMemberInvite) {
+        this.id = id;
+        this.group = group;
+        this.visibilityLevel = visibilityLevel;
+        this.permissions = permissions;
+        this.maxMembers = maxMembers;
+        this.requireApprovalToJoin = requireApprovalToJoin;
+        this.allowMemberInvite = allowMemberInvite;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public VisibilityLevel getVisibilityLevel() {
+        return visibilityLevel;
+    }
+
+    public List<InteractionRolePermission> getPermissions() {
+        return permissions;
+    }
+
+    public int getMaxMembers() {
+        return maxMembers;
+    }
+
+    public Boolean getRequireApprovalToJoin() {
+        return requireApprovalToJoin;
+    }
+
+    public Boolean getAllowMemberInvite() {
+        return allowMemberInvite;
+    }
 }

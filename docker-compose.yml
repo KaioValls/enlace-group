@@ -1,0 +1,27 @@
+services:
+#  enlace-group:
+#    image: kaiovalls/enlace-group:v1.0
+#    container_name: enlace-group-api
+#    environment:
+#      - QUARKUS_DATASOURCE_USERNAME=enlace
+#      - QUARKUS_DATASOURCE_PASSWORD=3nl4c3
+#      - QUARKUS_DATASOURCE_HOST=postgres-db-enlace-group
+#      - QUARKUS_DATASOURCE_PORT=5434
+#    depends_on:
+#      - postgres-db-enlace-group
+
+  postgres-db-enlace-group:
+    image: postgres:14
+    container_name: postgres-db-enlace-group
+    environment:
+      - POSTGRES_USER=enlace
+      - POSTGRES_PASSWORD=3nl4c3
+      - POSTGRES_DB=group
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres_data_group:/var/lib/postgresql/data
+
+volumes:
+  postgres_data_group:
+    driver: local

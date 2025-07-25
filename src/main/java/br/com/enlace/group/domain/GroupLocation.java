@@ -13,7 +13,6 @@ public class GroupLocation extends AbstractAuditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     @OneToMany(mappedBy = "location", fetch = FetchType.LAZY)
     private List<Group> group;
 
@@ -38,10 +37,8 @@ public class GroupLocation extends AbstractAuditable {
     @Column(name = "is_online", nullable = false)
     private Boolean isOnline;
 
-    @Column(name = "online_meeting_url")
+    @Column(name = "online_meeting_url", columnDefinition = "TEXT")
     private String onlineMeetingUrl;
-
-
 
 
     public Long getId() {

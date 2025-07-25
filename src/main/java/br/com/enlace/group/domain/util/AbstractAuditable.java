@@ -21,10 +21,10 @@ public abstract class AbstractAuditable extends PanacheEntityBase {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    @Column(name = "created_by", updatable = false)
+    @Column(name = "created_by", updatable = false, length = 100)
     private String createdBy;
 
-    @Column(name = "updated_by")
+    @Column(name = "updated_by", length = 100)
     private String updatedBy;
 
     @PrePersist
